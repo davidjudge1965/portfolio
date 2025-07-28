@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Portfolios on David Judge&#39;s Portfolio</title>
+    <link>http://localhost:1313/portfolio/</link>
+    <description>Recent content in Portfolios on David Judge&#39;s Portfolio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>david.judge@computer.org (David Judge)</managingEditor>
+    <webMaster>david.judge@computer.org (David Judge)</webMaster>
+    <copyright>© 2025 David Judge</copyright>
+    <lastBuildDate>Sun, 27 Jul 2025 15:00:41 +0100</lastBuildDate><atom:link href="http://localhost:1313/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Job Search Optimisation automation using n8n</title>
+      <link>http://localhost:1313/portfolio/job-search-optimisation-using-n8n/</link>
+      <pubDate>Sun, 27 Jul 2025 15:00:41 +0100</pubDate>
+      <author>david.judge@computer.org (David Judge)</author>
+      <guid>http://localhost:1313/portfolio/job-search-optimisation-using-n8n/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

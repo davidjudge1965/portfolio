@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1-2-3 on David Judge&#39;s Portfolio</title>
+    <link>http://localhost:1313/tags/1-2-3/</link>
+    <description>Recent content in 1-2-3 on David Judge&#39;s Portfolio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>david.judge@computer.org (David Judge)</managingEditor>
+    <webMaster>david.judge@computer.org (David Judge)</webMaster>
+    <copyright>© 2025 David Judge</copyright>
+    <lastBuildDate>Tue, 01 Jul 2025 17:38:12 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/1-2-3/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Proxmox and CloudInit</title>
+      <link>http://localhost:1313/homelabbing/proxmox-cloudinit/</link>
+      <pubDate>Tue, 01 Jul 2025 17:38:12 +0100</pubDate>
+      <author>david.judge@computer.org (David Judge)</author>
+      <guid>http://localhost:1313/homelabbing/proxmox-cloudinit/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/homelabbing/proxmox-cloudinit/featured-cloud-init-logo-vector.png" />
+    </item>
+    
+    <item>
+      <title>This is my First Homelabbing Item</title>
+      <link>http://localhost:1313/homelabbing/first-homelabbing-item/</link>
+      <pubDate>Tue, 01 Jul 2025 17:38:12 +0100</pubDate>
+      <author>david.judge@computer.org (David Judge)</author>
+      <guid>http://localhost:1313/homelabbing/first-homelabbing-item/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>This is my First Portfolio Item</title>
+      <link>http://localhost:1313/portfolios/first-portfolio-item/</link>
+      <pubDate>Tue, 01 Jul 2025 17:38:12 +0100</pubDate>
+      <author>david.judge@computer.org (David Judge)</author>
+      <guid>http://localhost:1313/portfolios/first-portfolio-item/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

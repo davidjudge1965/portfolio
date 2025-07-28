@@ -1,0 +1,1317 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  <title>Proxmox and CloudInit &middot; David Judge&#39;s Portfolio</title>
+    <meta name="title" content="Proxmox and CloudInit &middot; David Judge&#39;s Portfolio">
+
+  
+  <meta name="description" content="Proxmox VM creation with CloudImage and CloudInit.">
+  <meta name="keywords" content="Testing,1-2-3,">
+  
+  
+  <link rel="canonical" href="http://localhost:1313/homelabbing/proxmox-cloudinit/">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.65e08d36707f17fc4d76aba1704b0ac5039be3aef07bb799dc1e419578146a7bd8bf72397c17dd21be677bc2321a43f9e0e745ab388fdc696d685f6809492bbf.css"
+    integrity="sha512-ZeCNNnB/F/xNdquhcEsKxQOb467we7eZ3B5BlXgUanvYv3I5fBfdIb5ne8IyGkP54OdFqziP3GltaF9oCUkrvw==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+    
+    
+    
+  
+  
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.23ea3460af5452ae8f79e1d229b2694d6acd1a8f21fc49784791d34b0b171648e4bf38275b7c39a9d11f1ac8f551b76a6381522262cfc1a1df6caaf9eb86adaa.js"
+      integrity="sha512-I&#43;o0YK9UUq6PeeHSKbJpTWrNGo8h/El4R5HTSwsXFkjkvzgnW3w5qdEfGsj1UbdqY4FSImLPwaHfbKr564atqg=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  <meta property="og:url" content="http://localhost:1313/homelabbing/proxmox-cloudinit/">
+  <meta property="og:site_name" content="David Judge&#39;s Portfolio">
+  <meta property="og:title" content="Proxmox and CloudInit">
+  <meta property="og:description" content="Proxmox VM creation with CloudImage and CloudInit.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="homelabbing">
+    <meta property="article:published_time" content="2025-07-01T17:38:12+01:00">
+    <meta property="article:modified_time" content="2025-07-01T17:38:12+01:00">
+    <meta property="article:tag" content="Testing">
+    <meta property="article:tag" content="1-2-3">
+    <meta property="og:image" content="http://localhost:1313/homelabbing/proxmox-cloudinit/featured-cloud-init-logo-vector.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/homelabbing/proxmox-cloudinit/featured-cloud-init-logo-vector.png">
+  <meta name="twitter:title" content="Proxmox and CloudInit">
+  <meta name="twitter:description" content="Proxmox VM creation with CloudImage and CloudInit.">
+<meta name="twitter:image" content="http://localhost:1313/homelabbing/proxmox-cloudinit/featured-cloud-init-logo-vector.png">
+    <meta property="og:image" content="http://localhost:1313/homelabbing/proxmox-cloudinit/featured-cloud-init-logo-vector.png">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "",
+    "name": "Proxmox and CloudInit",
+    "headline": "Proxmox and CloudInit",
+    "description": "Proxmox VM creation with CloudImage and CloudInit.",
+    
+    "inLanguage": "en",
+    "url" : "http:\/\/localhost:1313\/homelabbing\/proxmox-cloudinit\/",
+    "author" : {
+      "@type": "Person",
+      "name": "David Judge"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-07-01T17:38:12\u002b01:00",
+    "datePublished": "2025-07-01T17:38:12\u002b01:00",
+    
+    "dateModified": "2025-07-01T17:38:12\u002b01:00",
+    
+    "keywords": ["Testing","1-2-3"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2631"
+  }]
+  </script>
+
+
+
+  
+  
+    <meta name="author" content="David Judge">
+  
+  
+    
+      
+        
+      
+    
+      
+        
+          <link href="https://linkedin.com/in/davidjudge" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://github.com/davidjudge1965" rel="me">
+        
+      
+    
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.03cb160e3cfdb2667a2e2c80d283bebcf63ff8bbc4b629c9ab2babf6fae1d0c07ad470edae783efa4fabda2ac01c58d60e63b98b3c336be8208460f08f4354f5.js" integrity="sha512-A8sWDjz9smZ6LiyA0oO&#43;vPY/&#43;LvEtinJqyur9vrh0MB61HDtrng&#43;&#43;k&#43;r2irAHFjWDmO5izwza&#43;gghGDwj0NU9Q=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a
+      >
+    </div>
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  
+  
+    
+    
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
+          David Judge&rsquo;s Portfolio
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/homelabbing/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Homelabbings">
+    Homelabbing
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/portfolios/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    Portfolios
+  </p>
+</a>
+
+
+
+      
+    
+
+    
+
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+        <div class="flex items-center justify-center dark:hidden">
+          
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/homelabbing/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Homelabbings">
+      Homelabbing
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/portfolios/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      Portfolios
+    </p>
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+
+
+  <article>
+    
+
+
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Proxmox and CloudInit
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-07-01T17:38:12&#43;01:00">1 July 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2631 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">13 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="views_Homelabbing\Proxmox-CloudInit\index.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="views"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+  
+  
+
+
+
+      </div>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+    </header>
+
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="Alt" src="/articles/assets/proxmox-server-solutions-gmbh-logo-vector.png">
+
+  
+</figure>
+ 
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="Alt" src="/articles/assets/cloud-init-logo-vector.png">
+
+  
+</figure>
+</p>
+
+<h1 class="relative group">Proxmox VM creation with CloudImage and CloudInit 
+    <div id="proxmox-vm-creation-with-cloudimage-and-cloudinit" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#proxmox-vm-creation-with-cloudimage-and-cloudinit" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>I wanted to build a few VMs for my k8s cluster - a master node which would hold the k8s control plane and a few worker nodes.</p>
+<p>I didn&rsquo;t fancy building 4 VMs for my k8s cluster by manually installing the O/S (Ubuntu 24.04) from the ISO and going through the installation GUI when faster and more reliable methods were available.  Enter CloudInit.</p>
+<p>Deploying templates to VMs using <a
+  href="https://cloud-init.io/"
+    target="_blank"
+  >CloudInit</a> starts with the creation of the VM template.  While this can be done via the Proxmox UI, I chose to use the command-line as much as possible.</p>
+<p>To create the template, there are a number of internet resources you can follow.  I based myself on Techno Tim&rsquo;s <a
+  href="https://www.youtube.com/watch?v=shiIi38cJe4"
+    target="_blank"
+  >Perfect Proxmox Template with Cloud Image and Cloud Init video</a> though there are a number of very similar videos and blogs.  While the video is around 3 years old, I found it a good base.  Note that Tim also publishes a companion <a
+  href="https://technotim.live/posts/cloud-init-cloud-image/"
+    target="_blank"
+  >blog</a> with the details of the commands etc.  However, I find that these resources don&rsquo;t provide enough context or explanations for the commands they use.  As part of my intention in these articles is to educate/explain, this article is somewhat longer and more wordy than the other resources you may read.</p>
+<p>At the end of this article, I have compiled some resources that have been useful to me and may be to you.</p>
+<p>All the commands below were run as the root user on Proxmox (or &ldquo;pve&rdquo; for Proxmox Virtual Environment).</p>
+
+<h2 class="relative group">The key steps are: 
+    <div id="the-key-steps-are" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#the-key-steps-are" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>Download the cloud image</li>
+<li>Create the new Virtual machine</li>
+<li>Import then attach the downloaded CloudInit image to the VM</li>
+<li>Add a CloudInit drive to the VM and make it bootable</li>
+<li>Add a serial console to the VM</li>
+<li>Convert the VM to a template</li>
+<li>Configure CloudInit (the parameters, that is)</li>
+<li>Clone the template into a new VM</li>
+<li>Update the CloudInit configuration in the VM to meet your needs</li>
+<li>(Optional) Grow the disk</li>
+</ol>
+
+<h3 class="relative group">Download the CloudInit image 
+    <div id="download-the-cloudinit-image" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#download-the-cloudinit-image" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>A Cloud Init disk image is similar to an ISO file and is the boot/installation disk for our VM.
+Canonical&rsquo;s repository of Cloud Init images is <a
+  href="https://cloud-images.ubuntu.com/"
+    target="_blank"
+  >here</a>.
+You will need to download the image that suits you needs.  For me that was:
+<a
+  href="https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+    target="_blank"
+  >https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img</a>.
+Once you&rsquo;ve found the image you want in the repository of cloud images, right-click the file and select &lsquo;Copy link address&rsquo; so that you can paste it into your download command.</p>
+<p>To perform the download, use the following command (replacing the URL with your choice of CloudInit image, the one you &lsquo;copied&rsquo; in the previous paragraph) while logged into your Proxmox server as root.  The file will be downloaded in the current directory. You may wish to download it to <code>/var/lib/vz/template/iso</code> (the iso directory of the &rsquo;local&rsquo; storage in Proxmox).  In a later step the downloaded image will be imported into the storage of your choice alongside the VM definition.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
+</span></span></code></pre></div>
+<h3 class="relative group">Create the new VM (to later be converted to a template) 
+    <div id="create-the-new-vm-to-later-be-converted-to-a-template" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#create-the-new-vm-to-later-be-converted-to-a-template" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>In this process, we first create a VM and later, when we want to use it, we clone it.  It&rsquo;s best practice to convert the VM into a &ldquo;template&rdquo; which protects you from accidentally starting it, etc.  Thus it is the template that we will (later) clone into the actual VM we want.</p>
+<p>Pick the values you need for memory, CPU, etc., making sure that the VM ID is unique.  I prefer to use what I think of as minimum usable values.  For my purposes, my k3s control pane node needs 4GiB RAM and 4 vCPU, and the worker nodes will be using the same values, though as their load increases, the RAM and vCPU will probably need to be adjusted.</p>
+<pre>
+qm create 8200 --memory 4096 --core 4 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+</pre>
+<p>This creates a VM with ID 8200, sets the core count to 4, gives it the name &ldquo;ubuntu-cloud&rdquo; and sets the first network interface to use the virtio driver and the <code>vmbr0</code> &lsquo;bridge&rsquo;.</p>
+
+<h3 class="relative group">Import then attach the downloaded CloudInit image to the VM 
+    <div id="import-then-attach-the-downloaded-cloudinit-image-to-the-vm" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#import-then-attach-the-downloaded-cloudinit-image-to-the-vm" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>For it to be used by the VM, the cloudinit image must be imported to the VM and placed in a proxmox storage.  Think of this as converting the downloaded &lsquo;img&rsquo; file into a qcow2 file, Proxmox&rsquo;s preferred format.  On my server, that storage that will hold the resulting qcow2 file is called &ldquo;data4tb&rdquo;.</p>
+<p>The  commands are below - The bolded text needs to be adapted for your environment.</p>
+<p>&ldquo;noble-server-cloudimg-amd64.img&rdquo; is the file name from the wget command which will be imported into the Proxmox VM as &lsquo;vm-8200-disk-0&rsquo;&hellip; It&rsquo;s disk number 0 of VM id 8200.</p>
+<p>The cloudinit disk images are just big enough.  This means that once it&rsquo;s up and running you won&rsquo;t have enough disk space to store very much.  In my testing I failed to install more than 2 or 3 packages as the VM ran out of space.  To alleviate this issue, the commands include growing the disk.  Doing it at this stage has the benefit that at first start, the filesystem will expand to fill the disk.  The &lsquo;resize&rsquo; command tells pve to grow the disk so if it was 3Gbytes to start with the command below will give you a disk of 53Gb.</p>
+<p>The last command sets the boot order to contain just one disk, the one attached to scsi0.</p>
+<pre>
+qm disk import 8200 noble-server-cloudimg-amd64.img <b>data4tb</b>
+qm set 8200 --scsihw virtio-scsi-pci --scsi0 <b>data4tb</b>:vm-8200-disk-0
+qm resize 8200 scsi0 +50G
+qm create --boot order=scsi0
+</pre>
+
+<h3 class="relative group">Add a Cloudinit &lsquo;drive&rsquo; to the VM 
+    <div id="add-a-cloudinit-drive-to-the-vm" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#add-a-cloudinit-drive-to-the-vm" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>The cloudinit drive (usually an ISO file - pve will (re-)generate it for you) contains the parameters for the cloudinit operation that will take place when the VM boots.
+The parameters/values can be set in the Proxmox GUI and this is done later in this process:
+
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="Alt" src="/articles/assets/VM_Cloudinit_parameters.png">
+
+  
+</figure>
+</p>
+<p>Note that the first command will create the cloud-init disk - though it&rsquo;s actually an ISO file rather than a generic disk.  It will output the progress of the creation of the disk.</p>
+<pre>
+qm set 8200 --ide2 <b>data4tb</b>:cloudinit
+</pre>
+
+<h3 class="relative group">Add a serial console to the VM and enable Guest Agent 
+    <div id="add-a-serial-console-to-the-vm-and-enable-guest-agent" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#add-a-serial-console-to-the-vm-and-enable-guest-agent" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>This step is needed to enable you to view boot output, etc. via Proxmox&rsquo;s Console function (VNC - a virtual remote/screen).</p>
+<p>If you you don&rsquo;t plan on adding some SSH keys, this step is vital.  Without it, in the absence of SSH keys, you won&rsquo;t be able to log in even from the pve console.</p>
+<p>By default, pve does not try to talk to the guest agent on VMs.  I recommend switching that on as it gives visibility in the GUI to the VM&rsquo;s networking which is very useful, especially when the network was set up for DHCP.</p>
+<pre>
+qm set 8200 --serial0 socket --vga serial0
+qm set 8200 --agent enabled=1
+</pre>
+
+<h3 class="relative group">Convert the VM to a template 
+    <div id="convert-the-vm-to-a-template" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#convert-the-vm-to-a-template" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>While you can clone a VM, it&rsquo;s best practice to create a template (as mentioned above) which you configure as needed and to then clone the template to a VM when you need a VM.</p>
+<pre>
+qm template 8200
+</pre>
+
+<h3 class="relative group">Configure CloudInit (the parameters, that is) 
+    <div id="configure-cloudinit-the-parameters-that-is" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#configure-cloudinit-the-parameters-that-is" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>In Cloudinit images, the cloudinit process which is executed on every start of a cloudinit VM takes its configuration from the configuration data stored in the cloudinit disk we created earlier.  This section explains how to populate that disk with the custom configuration we need.</p>
+<p>You can manually configure the cloudinit parameters using the GUI as mentioned earlier.  However the intent of this article is to document the steps you will need to create the VMs using just the command line so that, in time, we can automate the process via a script or an automation tool.</p>
+<p>Certain aspects of cloudinit can be configured individually on the command-line.  e.g. you can set the ssh key to the contents of a file thus: <code>qm set 8200 --sshkey ~/.ssh.id_rsa.pub</code> which will set the cloudinit SSH key to the contents of the id_rsa.pub (the public key) from the .ssh directory of the user&rsquo;s home directory.</p>
+<p>I need to be able to ssh into the VMs from multiple different places: my &lsquo;home&rsquo; computer, the Proxmox server&rsquo;s CLI and from my Ansible server and for this I need set the cloudinit SSH Key to contain all three keys.</p>
+<p>The easiest way to do this is to update the &lsquo;user&rsquo; section of cloudinit which includes configuration of the user, their password, and other parameters including the various ssh keys that will be needed.  Note that you only deploy the public keys!  And it&rsquo;s best practice not to set a password for the user which, in effect, enforces the more secure use of SSH keys to log in remotely.</p>
+<p>To do this, we need to create a yaml configuration file.  For my example, the yaml file will look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#cloud-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-cloud</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">manage_etc_hosts</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">fqdn</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-cloud.lab.davidmjudge.me.uk</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">ansibleuser</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># You can add a password here, but that&#39;s not generally considered a best </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># practice as it&#39;s better to ssh in using keys.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># If you want to be able to log in via Proxmox&#39;s console, you need to set a password.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">ssh_authorized_keys</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKL1EWv5ZwWTti7qoZbA+OZDGE5U+JhUU1Mxb+M0ZxkL ansibleuser@ansible4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP9eyxA4P8mE51qmbnigiuEmX72dRFRuN4SLmp0ISuA david@Ryzen2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">chpasswd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">expire</span><span class="p">:</span><span class="w"> </span><span class="kc">False</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">package_upgrade</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><p>The user-data configuration can be used for much more - later in this article you will see how I configured it to install the package <code>qemu-guest-agent</code> and start it - see the &lsquo;packages:&rsquo; and &lsquo;runcmd:&rsquo; sections of the user configuration a little further down.</p>
+
+<h3 class="relative group">Configuring cloudinit custom configuration files 
+    <div id="configuring-cloudinit-custom-configuration-files" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#configuring-cloudinit-custom-configuration-files" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Cloudinit allows you to use configuration files that are read by cloudinit at startup.  While there are 4 different areas or sections in cloudinit (user, network and meta, vendor), I will only need to customise 2 of them: user and network.</p>
+<p>You can then use the yaml files for user and network to configure these aspect of cloudinit.</p>
+<p>These configuration files must reside on a PVE filesystem configured to contain snippets.  The next few paragraphs cover the creation of a directory in the pve GUI to hold the snippets.</p>
+<p>One thing to note is that once you are using cicustom files, changes via the GUI to the cloudinit configuration will have no effect ad the contents of the configurations will take precendence.</p>
+
+<h4 class="relative group">Creating a snippets directory 
+    <div id="creating-a-snippets-directory" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#creating-a-snippets-directory" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>The cloudinit configuration yaml files must be stored in a location that can be reached when the VM is starting - i.e. in a pve storage location.  To be able to create a snippet, you will first need to add a &ldquo;snippet&rdquo; storage if you haven&rsquo;t got one. To do this, in the Proxmox GUI, select your storage view and add a &lsquo;directory&rsquo; storage:
+
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="Alt" src="/articles/assets/Creating_Snippets_Directory.png">
+
+  
+</figure>
+</p>
+<p>I created a storage called &ldquo;snip&rdquo; and gave it a the following location in the pve&rsquo;s filesystem: <code>/snipfiles</code>.  When the snippet location is created it creates a &ldquo;snippets subfolder in &ldquo;/snipfiles:</p>
+<pre tabindex="0"><code>root@pve:/# tree snipfiles/
+snipfiles/
+└── snippets
+
+2 directories, 0 files
+</code></pre><p>Thus &ldquo;/snipfiles/snippets&rdquo; will be the folder in the pve&rsquo;s filesystem where I will place snippets on my pve server.</p>
+<p>Proxmox (or cloudinit) does not seem to like subdirectories in the snippets.  You must create the configuration files in the snippets directory (i.e. <code>/snipfiles/snippets</code>).</p>
+
+<h4 class="relative group">Creating the configurations file &ldquo;snippets&rdquo; 
+    <div id="creating-the-configurations-file-snippets" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#creating-the-configurations-file-snippets" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>While there are 4 different areas or sections in cloudinit (user, network and meta, vendor), I will only need to customise 2 of them: user and network.</p>
+<p>You can then use the yaml files for user and network to configure these aspect of cloudinit.</p>
+<p>Let&rsquo;s create the two files.
+First the file for the user section which contains the hostname/FQDN, user, SSH keys and other parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt;&gt; /snipfiles/snippets/user-data.yaml <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">#cloud-config
+</span></span></span><span class="line"><span class="cl"><span class="s">hostname: ubuntu-cloud
+</span></span></span><span class="line"><span class="cl"><span class="s">manage_etc_hosts: true
+</span></span></span><span class="line"><span class="cl"><span class="s">fqdn: ubuntu-cloud.lab.davidmjudge.me.uk
+</span></span></span><span class="line"><span class="cl"><span class="s">user: ansibleuser
+</span></span></span><span class="line"><span class="cl"><span class="s">ssh_authorized_keys:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKL1EWv5ZwWTti7qoZbA+OZDGE5U+JhUU1Mxb+M0ZxkL ansibleuser@ansible4
+</span></span></span><span class="line"><span class="cl"><span class="s">  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP9eyxA4P8mE51qmbnigiuEmX72dRFRuN4SLmp0ISuA david@Ryzen2
+</span></span></span><span class="line"><span class="cl"><span class="s">chpasswd:
+</span></span></span><span class="line"><span class="cl"><span class="s">  expire: False
+</span></span></span><span class="line"><span class="cl"><span class="s">users:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - default
+</span></span></span><span class="line"><span class="cl"><span class="s">package_upgrade: true
+</span></span></span><span class="line"><span class="cl"><span class="s"># Following lines are useful if the options of the template have &#34;QEMU Guest Agent&#34; set to true.
+</span></span></span><span class="line"><span class="cl"><span class="s"># When it is true and the agent is installed and running, pve can &#34;see inside&#34; the VM 
+</span></span></span><span class="line"><span class="cl"><span class="s"># and retrieve extra information such as the network configuration and display it in the GUI.
+</span></span></span><span class="line"><span class="cl"><span class="s">package_reboot_if_required: true
+</span></span></span><span class="line"><span class="cl"><span class="s">packages:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - qemu-guest-agent
+</span></span></span><span class="line"><span class="cl"><span class="s">runcmd:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - systemctl start qemu-guest-agent
+</span></span></span><span class="line"><span class="cl"><span class="s">  - systemctl enable qemu-guest-agent
+</span></span></span><span class="line"><span class="cl"><span class="s">  - echo &#34;qemu-guest-agent enabled and started.&#34; &gt;&gt; ~root/cloutinit-finished.txt
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>The above configuration contains some extra entries to install the QEMU guest agent and to enable and start the service.</p>
+<p>Then the file for the network section which contains the usual network configuration items:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt;&gt; /snipfiles/snippets/network-data.yaml <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">version: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">config:
+</span></span></span><span class="line"><span class="cl"><span class="s">    - type: physical
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: eth0
+</span></span></span><span class="line"><span class="cl"><span class="s">      mac_address: &#39;bc:24:11:39:d8:2a&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">      subnets:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - type: static
+</span></span></span><span class="line"><span class="cl"><span class="s">        address: &#39;192.168.178.210&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        netmask: &#39;255.255.255.0&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        gateway: &#39;192.168.178.1&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">    - type: nameserver
+</span></span></span><span class="line"><span class="cl"><span class="s">      address:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - &#39;192.168.178.1&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">      search:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - &#39;lab.davidmjudge.me.uk&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Note that the MAC address will be replaced when the VM template is cloned, as MAC addresses need to be unique.</p>
+<p>You can verify the full reference/path of the configuration files (what the pve documentation calls &ldquo;<volume>&rdquo;) you just created with the command <code>pve list snip</code> where &ldquo;snip&rdquo; is the name of the storage:</p>
+<pre tabindex="0"><code>root@pve:/# pvesm list snip
+Volid                           Format  Type      Size VMID
+snip:snippets/network-data.yaml snippet snippets  340
+snip:snippets/user-data.yaml    snippet snippets  639
+</code></pre><p>The snippets must be in the root of your snippets volume - You cannot reference snippets in subdirectories.</p>
+<p>The next command will configure cloudinit for our template with the 2 sections we created above.  The command I will reference the snippets using the &ldquo;snippets&rdquo; storage reference <code>snip:</code> (as displayed by the <code>pvesm list</code> command).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">qm <span class="nb">set</span> <span class="m">8200</span>  --cicustom <span class="s2">&#34;user=snip:snippets/user-data.yaml,network=snip:snippets/network-data.yaml&#34;</span>
+</span></span></code></pre></div><p>The qm set &ndash;cicustom command changes, in effect, the whole of the cloudinit configuration.  You can&rsquo;t run it first for &lsquo;user&rsquo; and then for &rsquo;network&rsquo; as running it for &rsquo;network&rsquo; will clear the &lsquo;user&rsquo; configuration.  The snippets are read/used when the VM is created.</p>
+<p>You can also use this command on a cloudinit <em>VM</em> (as opposed to a template) - i.e. once you&rsquo;ve cloned the template.  The changes will take effect next time you start the VM.</p>
+<p>While it is not possible today to view the cloudinit settings you have set in the GUI, you can check the VM/template&rsquo;s config file.  For the 8200 template, look at the content of <code>/etc/pve/qemu-server/8200.conf</code>.  You will see the following line:</p>
+<pre tabindex="0"><code>cicustom: user=snip:snippets/user-data.yaml,network=snip:snippets/network-data.yaml
+</code></pre><p>To create the 4 VMs that started this article, I will eventually create 4 separate sets of config files and will prefix the filename with the hostnamename or id of the node - e.g. for the 3rd worker node, I would copy  user-data.yaml to kworker_<em>3</em>_-user-data.yaml and then customise it.</p>
+
+<h3 class="relative group">Clone the template into a new VM 
+    <div id="clone-the-template-into-a-new-vm" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#clone-the-template-into-a-new-vm" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Here we clone the template to a new VM with ID 210 (which must be an available ID), making a full clone (independent from the template) and placing it in the &lsquo;data4tb&rsquo; storage.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">qm clone <span class="m">8200</span> <span class="m">210</span> --full <span class="nb">true</span> --storage data4tb
+</span></span></code></pre></div><p>All that&rsquo;s left to do is start the VM</p>
+
+<h1 class="relative group">Parting thoughts 
+    <div id="parting-thoughts" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#parting-thoughts" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The process of creating the VMs for my k3s cluster can now start.  My next step will be to write a script to take the &ldquo;base&rdquo; cloudinit data files and copy them to <hostname>-user-data.yaml and <hostname>-network-data.yaml and to customise them with data secific to the new vm such as hostname, fqdn and IP address.</p>
+<p>I think I will porbably write an article about that as I suspect not everyone knows the techniques that can be used to make this easy.  Watch this space.</p>
+<p>And if you&rsquo;ve made it this far, many thanks for your perseverance.  If you&rsquo;ve found this useful, please let me know - either comment where you found the link (probably a LinkedIn post, or maybe my github), and maybe a like if you think the article is worthy of one.</p>
+
+<h1 class="relative group">Useful resources 
+    <div id="useful-resources" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#useful-resources" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p><a
+  href="https://pve.proxmox.com/pve-docs/"
+    target="_blank"
+  >Proxmox documentation</a></p>
+<p><a
+  href="https://sweworld.net/cheatsheets/proxmox/"
+    target="_blank"
+  >Proxmox Cheatsheet by Software Engineering World</a></p>
+<p><a
+  href="https://www.nakivo.com/blog/top-10-proxmox-cli-commands/"
+    target="_blank"
+  >Top 10 Proxmox CLI commands - Naviko</a></p>
+<p><a
+  href="https://cloudinit.readthedocs.io/en/latest/reference/examples.html"
+    target="_blank"
+  >All cloud config examples</a></p>
+<p><a
+  href="https://cloudinit.readthedocs.io/en/latest/reference/modules.html"
+    target="_blank"
+  >CloudInit Reference with details of many modules one can use</a></p>
+
+          
+          
+          
+        </div>
+
+        
+
+          
+            
+            
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+        width="96"
+        height="96"
+        alt="David Judge"
+        src="/img/blowfish_logo_hu_e74a130226122ae3.png">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        David Judge
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">Working on automation and AIOps/Observability for too many years to count. I like to write about my experiences and share knowledge with others.  Here I share my protfolio</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="mailto:david.judge@computer.org"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://linkedin.com/in/davidjudge"
+          target="_blank"
+          aria-label="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/davidjudge1965"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+          
+
+          
+
+          
+            <div class="mb-10"></div>
+          
+
+        
+
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_Homelabbing\Proxmox-CloudInit\index.md"
+          data-oid-likes="likes_Homelabbing\Proxmox-CloudInit\index.md"></script>
+      
+
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/homelabbing/first-homelabbing-item/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >This is my First Homelabbing Item</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-07-01T17:38:12&#43;01:00">1 July 2025</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a
+    href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          David Judge
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+      </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script> 
+  
+  <script
+    type="text/javascript"
+    src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js"
+    integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="http://localhost:1313/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>
