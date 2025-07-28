@@ -17,10 +17,11 @@ title = "David Judge's Portfolio"
 [params.author]
   name = "David Judge"
   email = "david.judge@computer.org"
-  image = "img/blowfish_logo.png"
+  # image = "img/blowfish_logo.png"
+  image = "img/author.jpg"
   imageQuality = 96
   headline = "Automation and Observability SME"
-  bio = "Working on automation and AIOps/Observability for too many years to count. I like to write about my experiences and share knowledge with others.  Here I share my protfolio"
+  bio = "Working on automation and AIOps/Observability for too many years to count. Here I share my protfolio and homelabbing experiences."
   links = [
     { email = "mailto:david.judge@computer.org" },
     { linkedin = "https://linkedin.com/in/davidjudge" },
